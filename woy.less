@@ -1,0 +1,120 @@
+.woy-notice {
+  z-index: 99999999;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box !important;
+  background: #ffffff;
+  opacity: 0.7;
+  transition:opacity 1s;
+  * {
+    box-sizing: border-box !important;
+    font-family: arial, sans-serif !important;
+  }
+  &:hover {
+    opacity: 1;
+  }
+  .message {
+    padding: 6px 10px;
+    font-size: 12px;
+    background: #cc181e;
+    color: #ffffff;
+    font-weight: bold;
+    .close {
+      float: right;
+      cursor: pointer;
+      color: #ffffff;
+      &:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  ul.video-list {
+    border: 1px solid #f1f1f1;
+    border-top: none;
+    height: 110px;
+    li {
+      height: 100px;
+      width: 400px;
+      display: none;
+      position: relative;
+      &:first-child {
+        display: block;
+        padding-top: 5px;
+        height: 105px;
+      }
+      &:last-child {
+        padding-bottom: 5px;
+      }
+      img {
+        height: 90px;
+        width: 120px;
+        position: absolute;
+        margin: 5px 10px;
+      }
+      .text {
+        margin: 0 20px 5px 140px;
+        overflow: hidden;
+        height: 90px;
+      }
+      .title {
+        margin: 5px 0 0 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: #333333;
+        font-weight: bold;
+      }
+      .description {
+        font-size: 11px;
+        color: #767676;
+        margin-top: 5px;
+        line-height: 16px;
+        text-overflow: ellipsis;
+      }
+      a {
+        height: 110px;
+        width: 400px;
+        display: block;
+        text-decoration: none !important;
+        position: relative;
+      }
+      a:hover {
+        text-decoration: none !important;
+        // background: #f1f1f1;
+        .title {
+          color: #167AC6;
+        }
+        .description {
+          color: #111111;
+        }
+      }
+    }
+  }
+  &.more {
+    ul.video-list{
+      height: auto;
+      max-height: 50vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      li {
+        display: block;
+      }
+    }
+  }
+  .more-video {
+    background: #f1f1f1;
+    color: #767676;
+    text-align: center;
+    width: 400px;
+    cursor: pointer;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    margin: -1px 0 0 0;
+    &:hover {
+      background: #767676;
+      color: #ffffff;
+    }
+  }
+}
