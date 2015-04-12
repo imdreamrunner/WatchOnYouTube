@@ -1,5 +1,7 @@
 web_dict =
-  'http://v.youku.com/': 'YOUKU'
+  '//v.youku.com/': 'YOUKU'
+  '//www.tudou.com/programs/view/': 'TUDOU'
+
 youtube_prefix = 'https://www.youtube.com/watch?v='
 youtube_seach_prefix = 'https://www.youtube.com/results?search_query='
 
@@ -32,16 +34,20 @@ video_item_template =
 getSourceWebsite = ->
   url = window.location.href
   for prefix of web_dict
-    if url.indexOf(prefix) == 0
+    if url.indexOf(prefix) >= 0
       return web_dict[prefix]
 
 getVideoTitle = ->
   website = getSourceWebsite()
+  console.log website
   if website == null
     return
   switch website
     when 'YOUKU'
       return $('h1.title').html()
+    when 'TUDOU'
+      console.log $('h1#videoKw')
+      return $('h1#videoKw').html()
       
 parseYouTubeItem = (item) ->
   try
@@ -115,3 +121,7 @@ doSearching = ->
   #displayNotice(data, keyword)
 
 $(document).ready pageLoad
+
+# This is add to catch when the website use pushState to change URL.
+# However not work on Tudou yet.
+window.addEventListener 'popstate', pageLoad

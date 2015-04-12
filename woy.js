@@ -3,7 +3,8 @@
   var displayNotice, doSearching, getSourceWebsite, getVideoTitle, moreDisplayed, notice_template, pageLoad, parseYouTubeItem, showMoreVideo, video_item_template, web_dict, youtube_prefix, youtube_seach_prefix;
 
   web_dict = {
-    'http://v.youku.com/': 'YOUKU'
+    '//v.youku.com/': 'YOUKU',
+    '//www.tudou.com/programs/view/': 'TUDOU'
   };
 
   youtube_prefix = 'https://www.youtube.com/watch?v=';
@@ -18,7 +19,7 @@
     var prefix, url;
     url = window.location.href;
     for (prefix in web_dict) {
-      if (url.indexOf(prefix) === 0) {
+      if (url.indexOf(prefix) >= 0) {
         return web_dict[prefix];
       }
     }
@@ -27,12 +28,16 @@
   getVideoTitle = function() {
     var website;
     website = getSourceWebsite();
+    console.log(website);
     if (website === null) {
       return;
     }
     switch (website) {
       case 'YOUKU':
         return $('h1.title').html();
+      case 'TUDOU':
+        console.log($('h1#videoKw'));
+        return $('h1#videoKw').html();
     }
   };
 
@@ -124,6 +129,9 @@
     return chrome.runtime.sendMessage(sendData, videoSearchResponse);
   };
 
-  $(document).ready(pageLoad);
+  $(document).ready(function() {
+    pageLoad();
+    return window.addEventListener('popstate', pageLoad);
+  });
 
 }).call(this);
