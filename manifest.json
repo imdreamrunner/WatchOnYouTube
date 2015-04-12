@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Watch On Youtube",
-  "short_name": "WatchOnYoutube",
+  "name": "Watch On YouTube",
+  "short_name": "WatchOnYouTube",
   "description": "",
   "version": "0.0.1",
   "minimum_chrome_version": "38",
