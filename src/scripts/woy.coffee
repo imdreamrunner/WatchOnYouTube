@@ -1,6 +1,7 @@
 web_dict =
   '//v.youku.com/': 'YOUKU'
   '//www.tudou.com/programs/view/': 'TUDOU'
+  '//www.tudou.com/albumplay/': 'TUDOU'
 
 youtube_prefix = 'https://www.youtube.com/watch?v='
 youtube_seach_prefix = 'https://www.youtube.com/results?search_query='
@@ -39,15 +40,15 @@ getSourceWebsite = ->
 
 getVideoTitle = ->
   website = getSourceWebsite()
-  console.log website
+  #console.log website
   if website == null
     return
   switch website
     when 'YOUKU'
-      return $('h1.title').html()
+      text = $('h1.title:first').text()
+      return text
     when 'TUDOU'
-      console.log $('h1#videoKw')
-      return $('h1#videoKw').html()
+      return $('h1#videoKw').text()
       
 parseYouTubeItem = (item) ->
   try
@@ -63,9 +64,7 @@ parseYouTubeItem = (item) ->
 moreDisplayed = false
 showMoreVideo = (keyword) -> ->
   if ! moreDisplayed
-    console.log "show more video"
     $('.woy-notice').addClass('more')
-    console.log $('.woy-notice').find('.more-video')
     $('.woy-notice').find('.more-video').html "Search on YouTube"
     moreDisplayed = true
   else
@@ -86,12 +85,11 @@ displayNotice = (data, keyword) ->
     $video.find('.title').html video.title
     $video.find('.description').html video.description
     $video.find('.link').attr 'href', video.url
-    console.log video.thumbnail
     $video.find('.thumbnail').attr 'src', video.thumbnail
     $notice.find('.video-list').append $video
   $('body').prepend $notice
 
-pageLoad = ->
+requestSearch = ->
   request =
     event: 'load'
   handle = (option) ->
@@ -101,14 +99,18 @@ pageLoad = ->
   chrome.runtime.sendMessage request, handle
   
 doSearching = ->
-  title = getVideoTitle()
+  title = getVideoTitle().trim()
+  if title.length == 0
+    return
+  $('div.woy-notice').remove()
   console.log 'Send title: ' + title
   sendData = 
     event: 'search'
     title: title
 
   videoSearchResponse = (data) ->
-    console.log JSON.stringify data
+    #console.log JSON.stringify data
+    console.log data
     if data.length > 0
       displayNotice data, title
 
@@ -120,8 +122,27 @@ doSearching = ->
   #console.log keyword
   #displayNotice(data, keyword)
 
-$(document).ready pageLoad
+currentTitle = null
 
-# This is add to catch when the website use pushState to change URL.
-# However not work on Tudou yet.
-window.addEventListener 'popstate', pageLoad
+checkTitleChange = ->
+  newTitle = getVideoTitle()
+  if newTitle != currentTitle
+    currentTitle = newTitle
+    requestSearch()
+  setTimeout checkTitleChange, 1000
+
+# $(document).ready requestSearch
+checkTitleChange()
+
+
+# For website (like TuDou) using pushState
+# Not working well yet.
+
+#window.addEventListener 'popstate', requestSearch
+#
+#_pushState = window.history.pushState
+#window.history.pushState = ->
+  #console.log "inject pushState"
+  #requestSearch()
+  #_pushState.apply(this, arguments)
+

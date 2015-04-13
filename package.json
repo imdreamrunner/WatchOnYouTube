@@ -1,0 +1,25 @@
+{
+  "name": "WatchOnYouTube",
+  "version": "1.0.0",
+  "description": "Watch On YouTube",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imdreamrunner/WatchOnYouTube.git"
+  },
+  "author": "imdreamrunner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imdreamrunner/WatchOnYouTube/issues"
+  },
+  "homepage": "https://github.com/imdreamrunner/WatchOnYouTube",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsonmin": "^0.2.4"
+  }
+}
