@@ -40,8 +40,8 @@ module.exports = (grunt) ->
         ext: '.js'
     watch:
       app:
-        files: ['**/*.json', '**/*.coffee', '**/*.less']
-        tasks:  ['clean', 'jsonmin', 'copy', 'coffee', 'uglify', 'less', 'clean:temp']
+        files: ['**/*.json', '**/*.coffee', '**/*.less', '**/*.html']
+        tasks:  ['clean', 'jsonmin', 'copy', 'coffee', 'uglify', 'less']
 
   # These plugins provide necessary tasks.
   grunt.loadNpmTasks 'grunt-contrib-clean'

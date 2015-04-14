@@ -45,9 +45,31 @@ searchRequestListener = (request, sender, sendResponse) ->
 optionRequestListener = (request, sender, sendResponse) ->
   if request.event != 'load'
     return false
-  sendResponse true
+  getIsActive (isActive) ->
+    sendResponse isActive
+  true
+
+getIsActive = (callback) ->
+  chrome.storage.sync.get 'active', (savedItems) ->
+    isActive = true
+    if 'active' of savedItems and ! savedItems['active']
+      isActive = false
+    callback isActive
+  
+setBrowserActionIcon = (isActive) ->
+  if isActive
+    icon = path: 'images/browser_action_normal.png'
+  else
+    icon = path: 'images/browser_action_disabled.png'
+  chrome.browserAction.setIcon icon
 
 chrome.runtime.onMessage.addListener searchRequestListener
 chrome.runtime.onMessage.addListener optionRequestListener
 chrome.browserAction.onClicked.addListener (tab) ->
-  alert 'icon clicked'
+  getIsActive (isActive) ->
+    isActive = !isActive
+    chrome.storage.sync.set 'active': isActive
+    setBrowserActionIcon isActive
+    
+getIsActive (isActive) ->
+  setBrowserActionIcon isActive

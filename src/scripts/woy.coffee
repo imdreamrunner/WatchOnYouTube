@@ -95,7 +95,7 @@ requestSearch = ->
   handle = (option) ->
     if option
       doSearching()
-  console.log "send load request"
+  #console.log "send load request"
   chrome.runtime.sendMessage request, handle
   
 doSearching = ->
@@ -103,14 +103,14 @@ doSearching = ->
   if title.length == 0
     return
   $('div.woy-notice').remove()
-  console.log 'Send title: ' + title
+  #console.log 'Send title: ' + title
   sendData = 
     event: 'search'
     title: title
 
   videoSearchResponse = (data) ->
     #console.log JSON.stringify data
-    console.log data
+    #console.log data
     if data.length > 0
       displayNotice data, title
 
