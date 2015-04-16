@@ -41,7 +41,7 @@ getSourceWebsite = ->
 getVideoTitle = ->
   website = getSourceWebsite()
   #console.log website
-  if website === null
+  if website == null
     return
   switch website
     when 'YOUKU'
@@ -100,7 +100,7 @@ requestSearch = ->
   
 doSearching = ->
   title = getVideoTitle().trim()
-  if title.length === 0
+  if title.length == 0
     return
   $('div.woy-notice').remove()
   #console.log 'Send title: ' + title
@@ -126,7 +126,7 @@ currentTitle = null
 
 checkTitleChange = ->
   newTitle = getVideoTitle()
-  if newTitle !== currentTitle
+  if newTitle != currentTitle
     currentTitle = newTitle
     requestSearch()
   setTimeout checkTitleChange, 1000
