@@ -13,7 +13,7 @@ onYouTubeApiLoad = ->
   gapi.client.setApiKey 'AIzaSyD-EBWXZnauyJ_NvUPyeNX5m8kJswEEe-I'
   youTubeAPILoaded = true
   console.log "onYouTubeApiLoad"
-  if pendingRequest != null
+  if pendingRequest
     pendingRequest()
 
 searchYoutube = (query, callback) ->
@@ -28,7 +28,7 @@ searchYoutube = (query, callback) ->
   request.execute callback
 
 searchRequestListener = (request, sender, sendResponse) ->
-  if request.event != 'search'
+  if request.event !== 'search'
     return false
   title = request.title
   console.log 'On request of searching ' + title
@@ -43,7 +43,7 @@ searchRequestListener = (request, sender, sendResponse) ->
   true
 
 optionRequestListener = (request, sender, sendResponse) ->
-  if request.event != 'load'
+  if request.event !== 'load'
     return false
   getIsActive (isActive) ->
     sendResponse isActive
@@ -51,9 +51,7 @@ optionRequestListener = (request, sender, sendResponse) ->
 
 getIsActive = (callback) ->
   chrome.storage.sync.get 'active', (savedItems) ->
-    isActive = true
-    if 'active' of savedItems and ! savedItems['active']
-      isActive = false
+    isActive = !savedItems || !savedItems.active
     callback isActive
   
 setBrowserActionIcon = (isActive) ->
