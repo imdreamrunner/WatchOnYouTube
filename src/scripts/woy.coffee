@@ -22,8 +22,8 @@ notice_template =
 video_item_template =
   """
   <li>
-    <a class="link" href=#"" target="_blank">
-      <img class="thumbnail" />
+    <a class="link" href="#" target="_blank">
+      <img class="thumbnail">
       <div class="text">
         <div class="title"></div>
         <div class="description"></div>
@@ -41,14 +41,14 @@ getSourceWebsite = ->
 getVideoTitle = ->
   website = getSourceWebsite()
   #console.log website
-  if website == null
+  if website === null
     return
   switch website
     when 'YOUKU'
       text = $('h1.title:first').text()
-      return text
     when 'TUDOU'
-      return $('h1#videoKw').text()
+      text = $('h1#videoKw').text()
+  text
       
 parseYouTubeItem = (item) ->
   try
@@ -100,7 +100,7 @@ requestSearch = ->
   
 doSearching = ->
   title = getVideoTitle().trim()
-  if title.length == 0
+  if title.length === 0
     return
   $('div.woy-notice').remove()
   #console.log 'Send title: ' + title
@@ -126,7 +126,7 @@ currentTitle = null
 
 checkTitleChange = ->
   newTitle = getVideoTitle()
-  if newTitle != currentTitle
+  if newTitle !== currentTitle
     currentTitle = newTitle
     requestSearch()
   setTimeout checkTitleChange, 1000
