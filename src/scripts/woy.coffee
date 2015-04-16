@@ -22,8 +22,8 @@ notice_template =
 video_item_template =
   """
   <li>
-    <a class="link" href=#"" target="_blank">
-      <img class="thumbnail" />
+    <a class="link" href="#" target="_blank">
+      <img class="thumbnail">
       <div class="text">
         <div class="title"></div>
         <div class="description"></div>
@@ -46,9 +46,9 @@ getVideoTitle = ->
   switch website
     when 'YOUKU'
       text = $('h1.title:first').text()
-      return text
     when 'TUDOU'
-      return $('h1#videoKw').text()
+      text = $('h1#videoKw').text()
+  text
       
 parseYouTubeItem = (item) ->
   try
