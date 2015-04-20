@@ -2,6 +2,7 @@ web_dict =
   '//v.youku.com/': 'YOUKU'
   '//www.tudou.com/programs/view/': 'TUDOU'
   '//www.tudou.com/albumplay/': 'TUDOU'
+  '//www.acfun.tv/v/': 'ACFUN'
 
 youtube_prefix = 'https://www.youtube.com/watch?v='
 youtube_seach_prefix = 'https://www.youtube.com/results?search_query='
@@ -48,6 +49,8 @@ getVideoTitle = ->
       text = $('h1.title:first').text()
     when 'TUDOU'
       text = $('h1#videoKw').text()
+    when 'ACFUN'
+      text = $('h1#txt-title-view').text()
   text
       
 parseYouTubeItem = (item) ->
@@ -103,7 +106,7 @@ doSearching = ->
   if title.length == 0
     return
   $('div.woy-notice').remove()
-  #console.log 'Send title: ' + title
+  console.log '[Watch on YouTube] Search "' + title + '" on YouTube.'
   sendData = 
     event: 'search'
     title: title
