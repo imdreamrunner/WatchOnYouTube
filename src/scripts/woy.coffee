@@ -11,7 +11,7 @@ notice_template =
   """
   <div class="woy-notice">
     <div class="message">
-      Similar video found on Youtube!
+      Similar video found on YouTube!
       <div class="close">Close</div>
     </div>
     <ul class="video-list">
